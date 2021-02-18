@@ -4,6 +4,7 @@ $primary-color: rgb(255, 174, 24);
 $carousel-transition: transform 4s ease, opacity .5s ease-out;
 
 
+
 //global styling =================
 *{
     box-sizing: border-box;
@@ -11,6 +12,11 @@ $carousel-transition: transform 4s ease, opacity .5s ease-out;
 
 body{
     overflow: hidden;
+}
+
+.container{
+    max-width: 1440px;
+    max-height: 100vh;
 }
 
 //Navbar Section ===================
@@ -35,57 +41,64 @@ nav{
     width: 100%;
     padding: 0;
     margin: 0;
-}
 
-#mainRow{
-    height: 100%;
+    #mainRow{
+        
+        height: 100%;
     
-
-    #comparison_link{
-        position: relative;
-        background-image: linear-gradient(#ff9d2f, #ff6126);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-
-            h1, a{
-                z-index: 1;
-            }
-
-            a{
-                font-size: 9rem;
-                font-weight: 300;
-                color: black;
-            }
-
-            a:hover{
-                color: $primary-color;
-                text-decoration: none;
-            }
-            
-    }
-
-        svg{
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 23.5vw;
-            // transform: translateY(-15%);
-            // transform: translatex(2%);
-
+        #comparison_link{
+            position: relative;
+            background-image: linear-gradient(#ff9d2f, #ff6126);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            // height: 40%;
+    
+                h1, a{
+                    z-index: 1;
+                }
+    
+                a{
+                    font-size: 9rem;
+                    font-weight: 300;
+                    color: black;
+                }
+    
+                a:hover{
+                    color: $primary-color;
+                    text-decoration: none;
+                }
+                
         }
+    
+            svg{
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 24vw;
+                // transform: translateY(-15%);
+                // transform: translatex(2%);
+    
+            }
 
-    div{
-        height: 40%;
+            #table{
+                height: 40%;
+            }
+    
+        // div{
+        //     height: 40%;
+        // }
     }
 }
+
+
 
 #sideBar{
     // background-color: aqua;
-    height: 100%;
+    height: 100vh;
    
     div{
         height: 40%;
@@ -108,7 +121,25 @@ nav{
         height: 100vh;
 
         .carousel-item{
-            transition: transform 4s ease, opacity 4s ease-out;
+            transition: transform 8s ease, opacity 8s ease-out;
+           
+            .carousel-caption{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+
+                a{
+                    color: white;
+                    text-decoration: none;
+                    outline: none;
+                    appearance: none;
+                }
+                a:hover{
+                    color: $primary-color;
+                    outline: none;
+                }
+           }
         }
     }
     
@@ -136,11 +167,63 @@ nav{
 
 
 
-//media queries
+// media queries
 
-// @media screen and(max-width: 986px){
-//     svg{
-//         height: 23.5vw;
-     
-//    }
-// }
+@media screen and(max-width: 768px){
+    
+    .body{
+        overflow: scroll;
+    }
+
+    #mainRow{
+        height: 50vh;
+
+        #comparison_link{
+            height: 100%;
+
+            svg{
+                height: 48vw;
+            }
+
+            div{
+                height: auto;
+            }
+        }
+
+       #table{
+           display: none;
+       }
+    }
+
+    #sidebar{
+        display: flex;
+        flex-direction: row;
+    }
+
+}
+
+@media screen and(max-width: 990px){
+    
+    #mainRow{
+        height: 100%;
+
+        #comparison-link{
+            // position: absolute;
+            height: 100%;
+            
+            svg {
+                height: 50vw;
+            }
+        }
+
+        div{
+            height: 100%;
+        }
+
+
+    #table{
+        display: none;
+    }
+
+    }
+}
