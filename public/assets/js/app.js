@@ -1,10 +1,3 @@
-$('.carousel').carousel({
-    interval: 500
-});
-
-
-
-
 
 let button = document.querySelector("#button");
 let text = document.querySelector('#inputText');
@@ -13,18 +6,19 @@ const newsDiv = document.getElementById('displayNews');
 
 
 window.onload = async function requestData(){
-    // await getDataAsync();
-    const dataJson = await getDataAsync();
-    await displayNews(dataJson);
-    // await negativeNumber();
-    // await getDataFromMarketStack();
-};
+         getDataAsync();    
+//     // await getDataAsync();
+//     // await displayNews(dataJson);
+//     // await negativeNumber();
+//     // await getDataFromMarketStack();
+
+
 
 
 
 // async function requestData(){
    
-// }
+}
 
 
         
@@ -35,60 +29,46 @@ window.onload = async function requestData(){
 //Function to fetch url and get data parsed 
 async function getDataAsync(){
 
+    //get msft
+    axios.get('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=MSFTxx').then( res => {
+        // console.log(res.data.data);
+        // for(let item of res.data.data){
+        //     console.log(item.close);
+        // }
+    }).catch( err => {
+        console.log('ERRORRRRRR' + err);
+    })
+    axios.get('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=TSLA').then( res => {
+        // console.log(res.data.data);
+        const closes = [];
+        for(let item of res.data.data){
+            closes.push(item.close);
+        }
+        return Promise.resolve(closes);
+    }).then( data => {
+        for(let i = 0; i < 5; i++){
+            console.log(data[i]);
+        }
+    });
 
-    // const summary = axios.get(url, headers);
-    // const trending = axios.get(url1, headers);
-    // const news = axios.request(urlNews);
-    // const charts = axios.request(urlCharts);
-    // const news_api = axios.get(NEWS_API);
-    // const ALPHA_DAILY = axios.get(ALPHA_DAILY_URL);
-    // const results = await Promise.all([summary, trending, news, charts]);
-    // const results = await Promise.all([NEWS_API]);
-
-
-    try{
-        const response = await fetch(NEWS_API);
-        
-        const json = await response.json();
-
-        console.log(json);
-        return json;
-
-    } catch(err){
-        console.log(err);
-    }
-
-    // console.log(results);
-    // console.log(await ALPHA_DAILY.data['Time Ser']);
-
-
-    // const resultSummary = results[0].data.marketSummaryAndSparkResponse.result;
-    // const resulttrending = results[1].data.finance.result[0].quotes;
-    // const resultNews = results[2].data.data.contents[0].content;
-    
-
-    // console.log(resultSummary);
-    // console.log(resulttrending);
-    // console.log(resultNews.body.data.partnerData.cover.image.originalUrl);
-
-              
-
-    // for(let i = 0; i < 12 ; i++){
-    //     const tr = document.createElement('tr');
-
-
-    //     tr.innerHTML = `    <th scope="row">${resulttrending[i].symbol}</th>
-    //                         <td>${resulttrending[i].shortName}</td>
-    //                         <td>${resulttrending[i].regularMarketPrice}</td>
-    //                         <td>${resulttrending[i].regularMarketChange}</td>
-    //                         <td id="percentage${i}">${resulttrending[i].regularMarketChangePercent.toFixed(2)}</td>`
-
-    //     tableDiv.appendChild(tr);  
-
-    // } 
-
-    // newsDiv.innerHTML = `<a href="${resultNews.canonicalUrl.url}"><img src="${resultNews.body.data.partnerData.cover.image.originalUrl}"></a>`
-
+    //     try{
+    //     fetch('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=MSFT')
+    //     .then( (response) => {
+    //         if(!response){
+    //             throw new Error(`Status code error: ${response.status}`);
+    //         } else {
+    //             response.json().then( (data) => {
+    //                 const info = data.data;
+    //                 for(let item of info){
+    //                     console.log(item.volume);
+    //                 }
+    //                 })
+    //             }
+    //         }
+    //     )
+    // } catch(err){
+    //     console.log(err);
+    // }
 }
 
 
@@ -149,63 +129,38 @@ async function displayNews(data){
 };
 
 
+function createIndexYahooTable(results){
+    
+    const resultSummary = results[0].data.marketSummaryAndSparkResponse.result;
+    const resulttrending = results[1].data.finance.result[0].quotes;
+    const resultNews = results[2].data.data.contents[0].content;
+    
+
+              
+
+    for(let i = 0; i < 12 ; i++){
+        const tr = document.createElement('tr');
 
 
+        tr.innerHTML = `    <th scope="row">${resulttrending[i].symbol}</th>
+                            <td>${resulttrending[i].shortName}</td>
+                            <td>${resulttrending[i].regularMarketPrice}</td>
+                            <td>${resulttrending[i].regularMarketChange}</td>
+                            <td id="percentage${i}">${resulttrending[i].regularMarketChangePercent.toFixed(2)}</td>`
 
-  
+        tableDiv.appendChild(tr);  
 
+    } 
 
-           
-
-
-
-
-
-
-
-//==========================================================================================
-// try{
-//     const response = await fetch(url, {
-//       "method": "GET",
-//       "headers": {
-//         "x-rapidapi-key": "69cdd731d7mshb69784c2a6313b4p1c5444jsnb4f2c4a294ac",
-//             "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com"
-//       }
-//     })
-//       const response1 = await fetch(url1, {
-//         "method": "GET",
-//         "headers": {
-//           "x-rapidapi-key": "69cdd731d7mshb69784c2a6313b4p1c5444jsnb4f2c4a294ac",
-//               "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com"
-//         }
-//     });
-
-//     const json = await response.json();
-//     const json1 = await response1.json();
-//     console.log(json);
-//     console.log(json1);
-
-
-    //code for market summary  =======================
-
-    // const results = json.marketSummaryAndSparkResponse.result;
-
-
-    // for(let i = 0; i < 5 ; i++){
-    //     const tr = document.createElement('tr');
-
-
-    //     tr.innerHTML = `    <th scope="row">${resultSummary[i].shortName}</th>
-    //                         <td>${resultSummary[i].region}</td>
-    //                         <td>${resultSummary[i].quoteType}</td>
-    //                         <td>${resultSummary[i].spark.previousClose}</td>`
-
-    //     tableDiv.appendChild(tr);
-    // }
-//==========================================================================================
+    newsDiv.innerHTML = `<a href="${resultNews.canonicalUrl.url}"><img src="${resultNews.body.data.partnerData.cover.image.originalUrl}"></a>`
+}
 
 
 
 
+$('.carousel').carousel({
+    interval: 500
+});
 
-//Alphavantage API KEY:  W3975TFRO13G7RVG
+
+

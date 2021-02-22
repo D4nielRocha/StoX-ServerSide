@@ -46,11 +46,7 @@
 
       //======================MARKETSTACK ===================================//
 
-      const marketURL = 'https://api.marketstack.com/v1/tickers/msft/eod';
-
-      const params = {
-        access_key: '8ab519ff412561125ca0729e24df2b3c' 
-      };
+      const marketURL = `http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=MSFT`;
 
 
       //===================NEWS API ======================================//
