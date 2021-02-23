@@ -10,6 +10,7 @@ const HOST = "127.0.0.1";
 //     next();
 // })
 
+app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 app.set(express.static('public'));
 

@@ -7,19 +7,15 @@ const newsDiv = document.getElementById('displayNews');
 
 window.onload = async function requestData(){
          getDataAsync();    
-//     // await getDataAsync();
-//     // await displayNews(dataJson);
-//     // await negativeNumber();
-//     // await getDataFromMarketStack();
-
-
-
-
-
-// async function requestData(){
    
 }
 
+
+// const leftInput = document.getElementById('left-input');
+
+// leftInput.addEventListener('input', event => {
+//     getDataAsync(event.target.value);
+// })
 
         
         
@@ -29,27 +25,42 @@ window.onload = async function requestData(){
 //Function to fetch url and get data parsed 
 async function getDataAsync(){
 
-    //get msft
-    axios.get('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=MSFTxx').then( res => {
-        // console.log(res.data.data);
-        // for(let item of res.data.data){
-        //     console.log(item.close);
-        // }
-    }).catch( err => {
-        console.log('ERRORRRRRR' + err);
-    })
-    axios.get('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=TSLA').then( res => {
-        // console.log(res.data.data);
-        const closes = [];
-        for(let item of res.data.data){
-            closes.push(item.close);
-        }
-        return Promise.resolve(closes);
+    fetch(`https://newsapi.org/v2/top-headlines?sources=business-insider&apiKey=3d286b585e694be39fcdfd24d4856f2e`)
+    .then( (response) => {
+       if(!response){
+           throw new Error('ERROR' + response.status)
+       }
+
+       return response.json();
     }).then( data => {
-        for(let i = 0; i < 5; i++){
-            console.log(data[i]);
-        }
-    });
+        console.log(data);
+        displayNews(data);
+    })
+    
+    .catch( err => {
+        console.log(err);
+    })
+    
+
+    //get msft
+    // axios.get(`https://newsapi.org/v2/top-headlines?sources=business-insider&apiKey=3d286b585e694be39fcdfd24d4856f2e`).then( res => {
+    //     console.log(res.data.data);
+       
+    // }).catch( err => {
+    //     console.log('ERRORRRRRR' + err);
+    // })
+    // axios.get('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=TSLA').then( res => {
+    //     // console.log(res.data.data);
+    //     const closes = [];
+    //     for(let item of res.data.data){
+    //         closes.push(item.close);
+    //     }
+    //     return Promise.resolve(closes);
+    // }).then( data => {
+    //     for(let i = 0; i < 5; i++){
+    //         console.log(data[i]);
+    //     }
+    // });
 
     //     try{
     //     fetch('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=MSFT')
