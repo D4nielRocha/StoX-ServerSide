@@ -101,3 +101,4 @@ const displayResult = data => {
       </div>`
       
 }
+
