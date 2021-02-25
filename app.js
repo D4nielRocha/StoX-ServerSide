@@ -10,9 +10,8 @@ const HOST = "127.0.0.1";
 //     next();
 // })
 
-app.use(express.json());
-app.use(express.static(__dirname + "/public"));
-app.set(express.static('public'));
+// app.use(express.json());
+app.use(express.static('public'));
 
 // app.use(bodyParser.text());
 // app.use(bodyParser.json());
@@ -23,6 +22,7 @@ app.set('view engine', 'ejs');
 
 
 app.use('/', require('./controllers/index'));
+app.use('/faceoff', require('./controllers/faceoff'));
 
 app.listen(PORT, HOST,  () => {
     console.log(`Connected at http:/${HOST}:${PORT}`);

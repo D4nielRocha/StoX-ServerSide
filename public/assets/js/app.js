@@ -1,27 +1,15 @@
 
-let button = document.querySelector("#button");
 let text = document.querySelector('#inputText');
 const tableDiv = document.getElementById('tableBody');
 const newsDiv = document.getElementById('displayNews');
 
 
 window.onload = async function requestData(){
-         getDataAsync();    
+        await getDataAsync();
+
    
-}
-
-
-// const leftInput = document.getElementById('left-input');
-
-// leftInput.addEventListener('input', event => {
-//     getDataAsync(event.target.value);
-// })
-
+}     
         
-        
- 
-
-
 //Function to fetch url and get data parsed 
 async function getDataAsync(){
 
@@ -32,55 +20,31 @@ async function getDataAsync(){
        }
 
        return response.json();
+
     }).then( data => {
-        console.log(data);
+        console.log(`This is the News API data ${data}`);
         displayNews(data);
+
+        return fetch(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-summary?region=US"`, headers );
+
+    }).then( response => {
+        if(!response){
+            throw new Error('ERROR' + response.status);
+        }
+        
+        return response.json();
+
+    }).then ( data => {
+        console.log(`This is the API TABLE data ${data}`);
+        // createIndexYahooTable(data);
     })
     
     .catch( err => {
         console.log(err);
     })
-    
-
-    //get msft
-    // axios.get(`https://newsapi.org/v2/top-headlines?sources=business-insider&apiKey=3d286b585e694be39fcdfd24d4856f2e`).then( res => {
-    //     console.log(res.data.data);
-       
-    // }).catch( err => {
-    //     console.log('ERRORRRRRR' + err);
-    // })
-    // axios.get('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=TSLA').then( res => {
-    //     // console.log(res.data.data);
-    //     const closes = [];
-    //     for(let item of res.data.data){
-    //         closes.push(item.close);
-    //     }
-    //     return Promise.resolve(closes);
-    // }).then( data => {
-    //     for(let i = 0; i < 5; i++){
-    //         console.log(data[i]);
-    //     }
-    // });
-
-    //     try{
-    //     fetch('http://api.marketstack.com/v1/eod?access_key=8ab519ff412561125ca0729e24df2b3c&symbols=MSFT')
-    //     .then( (response) => {
-    //         if(!response){
-    //             throw new Error(`Status code error: ${response.status}`);
-    //         } else {
-    //             response.json().then( (data) => {
-    //                 const info = data.data;
-    //                 for(let item of info){
-    //                     console.log(item.volume);
-    //                 }
-    //                 })
-    //             }
-    //         }
-    //     )
-    // } catch(err){
-    //     console.log(err);
-    // }
 }
+
+
 
 
 
@@ -141,6 +105,10 @@ async function displayNews(data){
 
 
 function createIndexYahooTable(results){
+
+    
+
+    
     
     const resultSummary = results[0].data.marketSummaryAndSparkResponse.result;
     const resulttrending = results[1].data.finance.result[0].quotes;
@@ -172,6 +140,3 @@ function createIndexYahooTable(results){
 $('.carousel').carousel({
     interval: 500
 });
-
-
-

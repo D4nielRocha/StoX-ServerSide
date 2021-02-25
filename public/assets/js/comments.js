@@ -62,7 +62,7 @@
 
 
 
-// const summary = axios.get(url, headers);
+    // const summary = axios.get(url, headers);
     // const trending = axios.get(url1, headers);
     // const news = axios.request(urlNews);
     // const charts = axios.request(urlCharts);
