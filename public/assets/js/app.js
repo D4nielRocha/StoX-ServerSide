@@ -7,44 +7,27 @@ const newsDiv = document.getElementById('displayNews');
 window.onload = async function requestData(){
         await getDataAsync();
 
-   
 }     
         
-//Function to fetch url and get data parsed 
+// Function to fetch url and get data parsed 
 async function getDataAsync(){
 
-    fetch(`https://newsapi.org/v2/top-headlines?sources=business-insider&apiKey=3d286b585e694be39fcdfd24d4856f2e`)
-    .then( (response) => {
-       if(!response){
-           throw new Error('ERROR' + response.status)
-       }
+    const news = axios.get(NEWS_API);
+    const table = axios.get(url1, headers);
+    const results = await Promise.all([news, table]);
 
-       return response.json();
+    console.log(results);
 
-    }).then( data => {
-        console.log(`This is the News API data ${data}`);
-        displayNews(data);
+    const newsData = results[0].data;
+    const tableData = results[1].data;
 
-        return fetch(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-summary?region=US"`, headers );
 
-    }).then( response => {
-        if(!response){
-            throw new Error('ERROR' + response.status);
-        }
-        
-        return response.json();
+    displayNews(newsData);
+    createIndexYahooTable(tableData);
+    negativeNumber();
 
-    }).then ( data => {
-        console.log(`This is the API TABLE data ${data}`);
-        // createIndexYahooTable(data);
-    })
-    
-    .catch( err => {
-        console.log(err);
-    })
+  
 }
-
-
 
 
 
@@ -104,18 +87,9 @@ async function displayNews(data){
 };
 
 
-function createIndexYahooTable(results){
+function createIndexYahooTable(tableData){ 
 
-    
-
-    
-    
-    const resultSummary = results[0].data.marketSummaryAndSparkResponse.result;
-    const resulttrending = results[1].data.finance.result[0].quotes;
-    const resultNews = results[2].data.data.contents[0].content;
-    
-
-              
+    const resulttrending = tableData.finance.result[0].quotes;          
 
     for(let i = 0; i < 12 ; i++){
         const tr = document.createElement('tr');
@@ -130,8 +104,6 @@ function createIndexYahooTable(results){
         tableDiv.appendChild(tr);  
 
     } 
-
-    newsDiv.innerHTML = `<a href="${resultNews.canonicalUrl.url}"><img src="${resultNews.body.data.partnerData.cover.image.originalUrl}"></a>`
 }
 
 

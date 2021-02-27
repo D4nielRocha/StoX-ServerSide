@@ -1,9 +1,16 @@
 
 const router = require('express').Router();
+// const { default: fetch } = require('node-fetch');
 const app = require('../app');
 
 router.get('/', (req, res) => {
-    res.render('index');
+
+
+    let result = `This wil be the index page`
+    res.json(result);
+
+    
+    // res.render('index');
 })
 
 
@@ -11,9 +18,6 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     res.send('POST REQUEST SUCEESFULLY SENT!');
 })
-
-
-
 
 
 

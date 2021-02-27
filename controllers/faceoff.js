@@ -3,10 +3,10 @@ const app = require('../app')
 
 router.get('/', (req, res) => {
 
-    let faceoff = req;
-    console.log(faceoff);
+    let message = 'this will be the faceoff endpoint';
+    res.json(message);
 
-    res.render('faceoff');
+    // res.render('faceoff');
 
 })
 
