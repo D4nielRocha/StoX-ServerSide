@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
 
     const result = faceoffRepository.createNewFaceoff(stox);
     
-    res.redirect('http://localhost:3000');
+    
 
 })
 
