@@ -36,17 +36,21 @@ router.post('/', async (req, res) => {
     let time = Date.now();
     let today = new Date(time);
 
+    console.log(req.body);
+
 
     let asset1 = req.body.asset1;
     let asset2 = req.body.asset2;
+ 
     let date = today.toISOString().slice(0,10);
-    let author = 'Daniel';
+    let author = 'Suellen';
 
 
     let stox = new Stox(asset1,asset2,date,author);
 
-    const result = faceoffRepository.createNewFaceoff(stox);
+    const result = await faceoffRepository.createNewFaceoff(stox);
     
+    res.json(result);
     
 
 })

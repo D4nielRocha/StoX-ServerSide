@@ -4,7 +4,7 @@ const GET_SAVED_STOXS = `SELECT * FROM stox WHERE author = @author ORDER BY _id 
 
 const GET_STOX_BY_ID = `SELECT * FROM stox WHERE author = @author AND _date = @date ORDER BY _date for json path ;`;
 
-const INSERT_NEW_STOX = 'INSERT INTO stox (asset1,asset2,_date,author) VALUES (@asset1,@asset2,@date,@author);';
+const INSERT_NEW_STOX = 'INSERT INTO stox (asset1_name,asset2_name,_date,author) VALUES (@asset1,@asset2,@date,@author);';
 
 
 
@@ -58,8 +58,8 @@ let createNewFaceoff = async (newFaceoff) => {
     try{
         const pool = await dbConnection
         const result = await pool.request()
-        .input('asset1', sql.VarChar, newFaceoff.asset1)
-        .input('asset2', sql.VarChar, newFaceoff.asset2)
+        .input('asset1', sql.VarChar, newFaceoff.asset1_name)
+        .input('asset2', sql.VarChar, newFaceoff.asset2_name)
         .input('date', sql.Date, newFaceoff._date)
         .input('author', sql.VarChar, newFaceoff.author)
         .query(INSERT_NEW_STOX)
