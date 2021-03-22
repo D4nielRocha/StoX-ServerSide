@@ -1,9 +1,10 @@
 const validator = require('validator');
 const repository = require('../repositories/faceoffRepository');
+const stoxValidator = require('../validator/stoxValidator');
 
 let displayFaceoff = async () => {
 
-    let result = "This enpoint will display the faceoff form - FROM SERVICE";
+    let result = await repository.getAllStox();
     
     return result;
 
@@ -42,7 +43,24 @@ let showComparisonByDate = async (authorId, date) => {
 
 }
 
+let createStox = async (stox) => {
+
+    let newStox;
+
+    let validatedStox = stoxValidator.stoxValidation(stox);
+    console.log("this is the validated stox");
+    console.log(validatedStox);
+    if(validatedStox != null){
+        newStox = await repository.createNewFaceoff(validatedStox);
+    }else {
+        console.log("Error at createStox Services Layer");
+    }
+
+    return newStox;
+
+}
+
 module.exports = {
 
-    displayFaceoff, showComparison, showComparisonByDate
+    displayFaceoff, showComparison, showComparisonByDate, createStox
 }

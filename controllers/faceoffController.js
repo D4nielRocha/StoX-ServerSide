@@ -1,11 +1,12 @@
 const router = require('express').Router();
-const faceoff = require('../services/faceoffService');
+const faceoffService = require('../services/faceoffService');
 const Stox = require('../models/stox')
 const faceoffRepository = require('../repositories/faceoffRepository');
+const stoxValidator = require('../validator/stoxValidator');
 
 router.get('/', async (req, res) => {
 
-    let message = await faceoff.displayFaceoff();
+    let message = await faceoffService.displayFaceoff();
     res.json(message);
 
 });
@@ -15,7 +16,7 @@ router.get('/:author', async (req, res) => {
 
     let authorId = req.params.author;
 
-    let result = await faceoff.showComparison(authorId);
+    let result = await faceoffService.showComparison(authorId);
     res.json(result);
 
 });
@@ -26,29 +27,16 @@ router.get('/:author/:date', async (req, res) => {
     let date = req.params.date;
     console.log(date);
 
-    let result = await faceoff.showComparisonByDate(authorId, date);
+    let result = await faceoffService.showComparisonByDate(authorId, date);
     res.json(result);
 
 });
 
 router.post('/', async (req, res) => {
 
-    let time = Date.now();
-    let today = new Date(time);
-
     console.log(req.body);
 
-
-    let asset1 = req.body.asset1;
-    let asset2 = req.body.asset2;
- 
-    let date = today.toISOString().slice(0,10);
-    let author = 'Suellen';
-
-
-    let stox = new Stox(asset1,asset2,date,author);
-
-    const result = await faceoffRepository.createNewFaceoff(stox);
+    const result = await faceoffService.createStox(req.body);
     
     res.json(result);
     
@@ -70,7 +58,7 @@ module.exports = router;
 
 // router.get('/', (req, res) => {
 //     // res.send('STOCK COMPARISON PAGE!! COMING UP!!');
-//     res.render('faceoff');
+//     res.render('faceoffService');
 // })
 
 // //route with variable path.

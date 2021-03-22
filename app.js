@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const session = require('express-session');
 const PORT = 8080;
 const HOST = "127.0.0.1";
 
@@ -17,6 +18,14 @@ app.use( (req, res, next) => {
     next();
 })
 
+app.use(session({
+    secret: "mykonos",
+    name: "connect.sid",
+    cookie: { maxAge: 60 * 1000 },
+    resave: false,
+    saveUninitialized: true
+}));
+
 app.use(express.json());
 
 app.use(express.text());
@@ -29,7 +38,6 @@ app.options('*', cors()) // include before other routes
 
 app.use('/', require('./controllers/indexController'));
 app.use('/faceoff', require('./controllers/faceoffController'));
-app.use('/user', require('./controllers/userController'));
 
 app.listen(PORT, HOST,  () => {
     console.log(`Connected at http:/${HOST}:${PORT}`);
