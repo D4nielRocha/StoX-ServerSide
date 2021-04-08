@@ -7,16 +7,25 @@ const Stox = require('../models/stox');
 let stoxValidation = (stox) => {
 
 let validatedStox;
+let stoxId = 0;
+console.log('this is the stox at the validator', stox);
+
+
+if(stox.hasOwnProperty('_id')){
+    stoxId = stox._id;
+}
 
 if(stox === null){
     console.log("The parameter is null === stoxValidation");
 }
 
-if(validator.isDecimal(stox.asset1_closing + '', {no_symbols: true, allow_negation: false}) && 
-   validator.isDecimal(stox.asset2_closing + '', {no_symbols: true, allow_negation: false}) &&
-   validator.isDate(stox._date) && 
-   stox.author != null) {
+if( validator.isNumeric(stoxId + '', {no_symbols: true, allow_negative: false}) &&
+    validator.isDecimal(stox.asset1_closing + '', {no_symbols: true, allow_negation: false}) && 
+    validator.isDecimal(stox.asset2_closing + '', {no_symbols: true, allow_negation: false}) &&
+    validator.isDate(stox._date) && 
+    stox.author != null) {
         validatedStox =  new Stox(
+            stoxId,
             stox.asset1_name,
             stox.asset1_invested,
             stox.asset1_amount,
@@ -35,8 +44,9 @@ if(validator.isDecimal(stox.asset1_closing + '', {no_symbols: true, allow_negati
    } else {
        console.log("Error validating new stox")
    }
-
+   console.log(validatedStox);
    return validatedStox;
+
 
 }
 

@@ -1,4 +1,5 @@
-function Stox(asset1,invested1,amount1,price1,shares1,closing1,asset2,invested2,amount2,price2,shares2,closing2,comment,date,author){
+function Stox(id,asset1,invested1,amount1,price1,shares1,closing1,asset2,invested2,amount2,price2,shares2,closing2,comment,date,author){
+    this._id = id;
     this.asset1_name = asset1;
     this.asset1_invested = invested1;
     this.asset1_amount = amount1;
