@@ -4,6 +4,8 @@ const {sql, dbConnection} = require('../database/db');
 
 const UPDATE_STOX = 'UPDATE stox SET asset1_name = @name1, asset1_invested = @invested1 ,asset1_amount = @amount1, asset1_price = @price1, asset1_shares = @shares1 ,asset1_closing = @closing1, asset2_name = @name2 ,asset2_invested = @invested2 ,asset2_amount = @amount2 ,asset2_price = @price2 ,asset2_shares = @shares2 ,asset2_closing = @closing2 ,comment = @comment, _date = @date, author = @author WHERE _id = @id; SELECT * FROM stox WHERE author = @author for json path';
 
+const GET_STOX_BY_ID = 'SELECT * FROM stox WHERE _id = @id for json path';
+
 const DELETE_STOX = 'DELETE FROM stox WHERE _id = @id;';  
 
 
@@ -49,6 +51,30 @@ let updateStox = async (stox) => {
 };
 
 
+let getStoxById = async (id) => {
+
+    let stoxId;
+    console.log(`this is the stox at the repository`, id);
+
+    try{
+        const pool = await dbConnection
+        const result = await pool.request()
+        .input('id', sql.Int, id)
+        // .input('author', sql.NVarChar, stox.author)
+        .query(GET_STOX_BY_ID);
+
+        
+        stoxId = result.recordset[0][0];
+        
+
+    }catch (err){
+        console.log('DB Error = Delete product: ' + err.message);
+
+    } 
+    console.log(`this is the deletedStox in the repository`, stoxId);
+    return stoxId;
+}
+
 
 
 let deleteStox = async (id) => {
@@ -77,5 +103,5 @@ let deleteStox = async (id) => {
 
 
 module.exports = {
-    updateStox, deleteStox
+    updateStox, deleteStox, getStoxById
 }

@@ -21,6 +21,19 @@ let updateStox = async (stox) => {
     }
 }
 
+let getStoxById = async (id) => {
+
+    if(!validator.isNumeric(id + '',{no_symbols: true, allow_negative: false})){
+        console.log('Invalid Parameter');
+        return `Invalid Parameter`;
+    }
+
+    let result = await myaccountRepository.getStoxById(id);
+
+    return result;
+
+};
+
 
 
 let deleteStox = async (id) => {
@@ -42,5 +55,5 @@ let deleteStox = async (id) => {
 
 
 module.exports = {
-    updateStox, deleteStox
+    updateStox, deleteStox, getStoxById
 }

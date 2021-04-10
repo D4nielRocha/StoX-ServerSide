@@ -13,7 +13,7 @@ let displayFaceoff = async () => {
 
 let showComparison = async (authorId) => {
 
-    if(!validator.isAlpha(authorId)){
+    if(!validator.isAscii(authorId)){
         console.log('Invalid Parameter');
         return `Invalid Parameter`;
     }

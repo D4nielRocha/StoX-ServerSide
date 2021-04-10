@@ -2,6 +2,17 @@ const router = require('express').Router();
 const myaccountService = require('../services/myaccountService');
 
 
+router.get('/:id', async (req, res) => {
+
+    let id = req.params.id;
+    console.log(id);
+
+    let result = await myaccountService.getStoxById(id);
+    res.json(result);
+
+})
+
+
 
 
 router.put('/update', async (req, res) => {

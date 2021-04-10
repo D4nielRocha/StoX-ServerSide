@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
 router.get('/:author', async (req, res) => {
 
     let authorId = req.params.author;
+    console.log(authorId);
 
     let result = await faceoffService.showComparison(authorId);
     res.json(result);
