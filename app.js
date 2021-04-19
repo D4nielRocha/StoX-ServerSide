@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const PORT = 8080;
-const HOST = "127.0.0.1";
+const HOST = "0.0.0.0";
 
 app.all('/*', function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
