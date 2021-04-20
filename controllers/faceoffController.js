@@ -3,8 +3,10 @@ const faceoffService = require('../services/faceoffService');
 const Stox = require('../models/stox')
 const faceoffRepository = require('../repositories/faceoffRepository');
 const stoxValidator = require('../validator/stoxValidator');
+const { authConfig, checkJwt, checkAuth } = require('../middleware/jwtAuth');
 
-router.get('/', async (req, res) => {
+
+router.get('/', checkJwt, async (req, res) => {
 
     let message = await faceoffService.displayFaceoff();
     res.json(message);
@@ -12,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/:author', async (req, res) => {
+router.get('/:author', checkJwt, async (req, res) => {
 
     let authorId = req.params.author;
     console.log(authorId);
@@ -33,7 +35,7 @@ router.get('/:author/:date', async (req, res) => {
 
 });
 
-router.post('/', async (req, res) => {
+router.post('/', checkJwt, async (req, res) => {
 
     console.log(req.body);
 
