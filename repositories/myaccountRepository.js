@@ -2,7 +2,7 @@ const {sql, dbConnection} = require('../database/db');
 
 //SQL QUERIES 
 
-const UPDATE_STOX = 'UPDATE stox SET asset1_name = @name1, asset1_invested = @invested1 ,asset1_amount = @amount1, asset1_price = @price1, asset1_shares = @shares1 ,asset1_closing = @closing1, asset2_name = @name2 ,asset2_invested = @invested2 ,asset2_amount = @amount2 ,asset2_price = @price2 ,asset2_shares = @shares2 ,asset2_closing = @closing2 ,comment = @comment, _date = @date, author = @author WHERE _id = @id; SELECT * FROM stox WHERE author = @author for json path';
+const UPDATE_STOX = 'UPDATE stox SET asset1_amount = @amount1, asset1_price = @price1, asset1_shares = @shares1 , asset1_closing = @closing1, asset2_amount = @amount2 ,asset2_price = @price2 ,asset2_shares = @shares2 ,asset2_closing = @closing2 ,comment = @comment, _date = @date WHERE _id = @id; SELECT * FROM stox WHERE author = @author for json path';
 
 const GET_STOX_BY_ID = 'SELECT * FROM stox WHERE _id = @id for json path';
 
@@ -21,14 +21,10 @@ let updateStox = async (stox) => {
         const pool = await dbConnection
         const result = await pool.request()
         .input('id', sql.Int, stox._id)
-        .input('name1', sql.NVarChar, stox.asset1_name)
-        .input('invested1', sql.Bit, stox.asset1_invested)
         .input('amount1', sql.Decimal, stox.asset1_amount)
         .input('price1', sql.Decimal, stox.asset1_price)
         .input('shares1', sql.Decimal, stox.asset1_shares)
         .input('closing1', sql.Decimal, stox.asset1_closing)
-        .input('name2', sql.NVarChar, stox.asset2_name)
-        .input('invested2', sql.Bit, stox.asset2_invested)
         .input('amount2', sql.Decimal, stox.asset2_amount)
         .input('price2', sql.Decimal, stox.asset2_price)
         .input('shares2', sql.Decimal, stox.asset2_shares)

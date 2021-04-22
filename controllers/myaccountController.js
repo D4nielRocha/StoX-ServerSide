@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const myaccountService = require('../services/myaccountService');
+const { checkJwt } = require('../middleware/jwtAuth');
 
 
-router.get('/:id', async (req, res) => {
+
+router.get('/:id', checkJwt, async (req, res) => {
 
     let id = req.params.id;
     console.log(id);
@@ -18,6 +20,7 @@ router.get('/:id', async (req, res) => {
 router.put('/update', async (req, res) => {
 
     let stox = req.body;
+    console.log(stox);
 
     try{
 
@@ -32,7 +35,7 @@ router.put('/update', async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req, res) => {
 
     let deletedStox = req.params.id;
     console.log(deletedStox);

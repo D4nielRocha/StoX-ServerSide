@@ -7,14 +7,14 @@ let updateStox = async (stox) => {
 
     let updatedStox;
 
-    let validatedStox = stoxValidator.stoxValidation(stox);
+    let validatedStox = stoxValidator.updateValidation(stox);
 
     if(validatedStox === null){
         console.log(`Stox couldn't be validated`);
     } 
 
     try{
-        updatedStox = await myaccountRepository.updateStox(validatedStox);
+        updatedStox = await myaccountRepository.updateStox(stox);
         return updatedStox;
     }catch(e){
         console.log('Account Service failed!', e.error);
