@@ -8,7 +8,7 @@ let stoxValidation = (stox) => {
 
 let validatedStox;
 let stoxId = 0;
-console.log('this is the stox at the validator', stox);
+// console.log('this is the stox at the validator', stox);
 
 
 if(stox.hasOwnProperty('_id')){
@@ -44,7 +44,7 @@ if( validator.isNumeric(stoxId + '', {no_symbols: true, allow_negative: false}) 
    } else {
        console.log("Error validating new stox")
    }
-   console.log(validatedStox);
+//    console.log(validatedStox);
    return validatedStox;
 }
 
@@ -80,7 +80,7 @@ let updateValidation = (stox) => {
    } else {
        console.log("Error validating new stox")
    }
-   console.log(validatedStox);
+//    console.log(validatedStox);
    return validatedStox;
 }
 

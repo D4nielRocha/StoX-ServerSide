@@ -29,6 +29,7 @@ app.options('*', cors()) // include before other routes
 // app.use('/', require('./controllers/indexController'));
 app.use('/faceoff', require('./controllers/faceoffController'));
 app.use('/myaccount', require('./controllers/myaccountController'));
+app.use('/user', require('./controllers/userController'));
 
 app.listen(PORT, HOST,  () => {
     console.log(`Connected at http:/${HOST}:${PORT}`);

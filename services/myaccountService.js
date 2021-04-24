@@ -2,6 +2,7 @@ const validator = require('validator');
 // const repository = require('../repositories');
 const stoxValidator = require('../validator/stoxValidator');
 const myaccountRepository = require('../repositories/myaccountRepository');
+const User = require('../models/user');
 
 let updateStox = async (stox) => {
 
@@ -35,15 +36,14 @@ let getStoxById = async (id) => {
 };
 
 
-
 let deleteStox = async (id) => {
 
     let deletedStox;
-    console.log(id);
+    // console.log(id);
 
     try{
         deletedStox = await myaccountRepository.deleteStox(id);
-        console.log(deletedStox);
+        // console.log(deletedStox);
         return deletedStox;
 
     }catch(err){

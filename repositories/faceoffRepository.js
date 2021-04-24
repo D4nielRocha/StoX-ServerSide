@@ -75,8 +75,8 @@ let getStoxByDate = async (authorId, date) => {
 
 
 let createNewFaceoff = async (stox) => {
-    console.log(`This is the stox at the repository`);
-    console.log(stox);
+//     console.log(`This is the stox at the repository`);
+    // console.log(stox);
     
     let newStox;
 
@@ -101,7 +101,7 @@ let createNewFaceoff = async (stox) => {
         .query(INSERT_NEW_STOX)
 
         newStox = result.rowsAffected[0];
-        console.log(result.rowsAffected[0]);
+        // console.log(result.rowsAffected[0]);
 
     } catch (err){
         console.log('DB Error = Create new product: ' + err.message);

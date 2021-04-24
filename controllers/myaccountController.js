@@ -1,26 +1,25 @@
 const router = require('express').Router();
 const myaccountService = require('../services/myaccountService');
 const { checkJwt } = require('../middleware/jwtAuth');
+const myaccountRepository = require('../repositories/myaccountRepository.js')
 
 
 
 router.get('/:id', checkJwt, async (req, res) => {
 
     let id = req.params.id;
-    console.log(id);
+    // console.log(id);
 
     let result = await myaccountService.getStoxById(id);
-    res.json(result);
+    res.json(result) 
 
 })
-
-
 
 
 router.put('/update', async (req, res) => {
 
     let stox = req.body;
-    console.log(stox);
+    // console.log(stox);
 
     try{
 
@@ -28,7 +27,7 @@ router.put('/update', async (req, res) => {
         res.json(result);
 
     }catch(e){
-        console.log(e.message);
+        // console.log(e.message);
         e.status(500);
         res.send(e.message);
     }
@@ -38,7 +37,7 @@ router.put('/update', async (req, res) => {
 router.delete('/:id', checkJwt, async (req, res) => {
 
     let deletedStox = req.params.id;
-    console.log(deletedStox);
+    // console.log(deletedStox);
 
     try{
 
@@ -46,7 +45,7 @@ router.delete('/:id', checkJwt, async (req, res) => {
         res.json(result);
 
     }catch(e){
-        console.log(e.message);
+        // console.log(e.message);
         e.status(500);
         res.send(e.message);
     }
@@ -55,3 +54,5 @@ router.delete('/:id', checkJwt, async (req, res) => {
 
 
 module.exports = router;
+
+

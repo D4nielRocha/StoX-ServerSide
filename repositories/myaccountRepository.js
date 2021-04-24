@@ -8,12 +8,16 @@ const GET_STOX_BY_ID = 'SELECT * FROM stox WHERE _id = @id for json path';
 
 const DELETE_STOX = 'DELETE FROM stox WHERE _id = @id;';  
 
+// const SAVE_NEW_USER = 'INSERT INTO stoxUser (username,email,firstName,lastName,phone) VALUES (@username,@email,@fName,@lName,@phone); SELECT * FROM stoxUser for json path;';
 
+// const SAVE_NEW_USER = 'IF NOT EXISTS(SELECT * FROM stoxUser WHERE username = @username) BEGIN INSERT INTO stoxUser (username,email) VALUES (@username,@email) END SELECT * FROM stoxUser for json path;';
+
+// const GET_USERS = 'SELECT * FROM stoxUser for json path;';
 
 
 let updateStox = async (stox) => {
-    console.log(`This is the stox at the repository`);
-    console.log(stox);
+//     console.log(`This is the stox at the repository`);
+    // console.log(stox);
     
     let updatedStox;
 
@@ -35,7 +39,7 @@ let updateStox = async (stox) => {
         .query(UPDATE_STOX)
 
         updatedStox = result.recordset[0];
-        console.log(result.recordset[0]);
+        // console.log(result.recordset[0]);
 
     } catch (err){
         console.log('DB Error = Update product: ' + err.message);
@@ -50,7 +54,7 @@ let updateStox = async (stox) => {
 let getStoxById = async (id) => {
 
     let stoxId;
-    console.log(`this is the stox at the repository`, id);
+    // console.log(`this is the stox at the repository`, id);
 
     try{
         const pool = await dbConnection
@@ -67,16 +71,14 @@ let getStoxById = async (id) => {
         console.log('DB Error = Delete product: ' + err.message);
 
     } 
-    console.log(`this is the deletedStox in the repository`, stoxId);
+    // console.log(`this is the deletedStox in the repository`, stoxId);
     return stoxId;
 }
-
-
 
 let deleteStox = async (id) => {
 
     let deletedStox;
-    console.log(`this is the stox at the repository`, id);
+    // console.log(`this is the stox at the repository`, id);
 
     try{
         const pool = await dbConnection
@@ -93,7 +95,7 @@ let deleteStox = async (id) => {
         console.log('DB Error = Delete product: ' + err.message);
 
     } 
-    console.log(`this is the deletedStox in the repository`, deletedStox);
+    // console.log(`this is the deletedStox in the repository`, deletedStox);
     return deletedStox;
 }
 
